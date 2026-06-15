@@ -1,0 +1,149 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ㈜아성다이소 · 인사총무본부 안전보건팀
+      - generic [ref=e6]:
+        - heading "2026년 상반기 정기안전보건교육 이수현황" [level=1] [ref=e7]
+        - generic [ref=e8]: "대상: 본사 재직자 887명 · 기준일 2026. 6. 15.(월) · 이수기준 교육과정 100% 수료"
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - img [ref=e12]
+        - generic [ref=e16]: 26.6%
+      - generic [ref=e17]:
+        - generic [ref=e18]: 전사 이수율
+        - generic [ref=e19]:
+          - generic [ref=e20]: 이수 269명
+          - generic [ref=e22]: 미이수 72명
+        - generic [ref=e24]: 교육 대상 887명 · 관리 본부 12개 · 부서 94개
+    - generic [ref=e25]:
+      - heading "최우선 관리 대상 (미이수 5명↑ & 이수율 50% 미만)" [level=2] [ref=e26]
+      - list [ref=e27]:
+        - listitem [ref=e28]:
+          - generic [ref=e29]: 영업본부 · 관악/평택/안산영업부
+          - generic [ref=e30]: 미이수 11명 (35.3%)
+        - listitem [ref=e31]:
+          - generic [ref=e32]: 영업본부 · 수원/용인영업부
+          - generic [ref=e33]: 미이수 7명 (36.4%)
+        - listitem [ref=e34]:
+          - generic [ref=e35]: 인사총무본부 · 인사관리부
+          - generic [ref=e36]: 미이수 10명 (37.5%)
+        - listitem [ref=e37]:
+          - generic [ref=e38]: 상품본부 · 미용/화장품부
+          - generic [ref=e39]: 미이수 5명 (44.4%)
+        - listitem [ref=e40]:
+          - generic [ref=e41]: 온라인사업본부 · 온라인MD부
+          - generic [ref=e42]: 미이수 7명 (46.2%)
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - heading "본부·부서별 이수현황" [level=2] [ref=e45]
+        - generic [ref=e46]: 본부 클릭 시 부서 상세 · 이수율 낮은 순
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - generic [ref=e49]: 본부 상태 분포
+          - generic [ref=e54]:
+            - generic [ref=e55]:
+              - text: 우수
+              - generic [ref=e57]: "2"
+            - generic [ref=e58]:
+              - text: 보통
+              - generic [ref=e60]: "8"
+            - generic [ref=e61]:
+              - text: 미흡
+              - generic [ref=e63]: "2"
+            - generic [ref=e64]:
+              - text: 집중
+              - generic [ref=e66]: "0"
+        - generic [ref=e67]:
+          - text: 막대 위 점선 = 전사 평균
+          - generic [ref=e69]: 78.8%
+        - generic [ref=e70]:
+          - button "인사총무본부 28.6% › 미이수 13명 · 대상 36명" [ref=e71] [cursor=pointer]:
+            - generic [ref=e72]: 인사총무본부
+            - generic [ref=e75]: 28.6%
+            - generic [ref=e76]: ›
+            - generic: 미이수 13명 · 대상 36명
+          - button "디자인본부 20.2% › 미이수 26명 · 대상 83명" [ref=e77] [cursor=pointer]:
+            - generic [ref=e78]: 디자인본부
+            - generic [ref=e81]: 20.2%
+            - generic [ref=e82]: ›
+            - generic: 미이수 26명 · 대상 83명
+          - button "상품본부 0.0% › 미이수 30명 · 대상 101명" [ref=e83] [cursor=pointer]:
+            - generic [ref=e84]: 상품본부
+            - generic [ref=e86]: 0.0%
+            - generic [ref=e87]: ›
+            - generic: 미이수 30명 · 대상 101명
+          - button "영업본부 0.0% › 미이수 71명 · 대상 292명" [ref=e88] [cursor=pointer]:
+            - generic [ref=e89]: 영업본부
+            - generic [ref=e91]: 0.0%
+            - generic [ref=e92]: ›
+            - generic: 미이수 71명 · 대상 292명
+          - button "재경본부 0.0% › 미이수 4명 · 대상 19명" [ref=e93] [cursor=pointer]:
+            - generic [ref=e94]: 재경본부
+            - generic [ref=e96]: 0.0%
+            - generic [ref=e97]: ›
+            - generic: 미이수 4명 · 대상 19명
+          - button "TQC본부 0.0% › 미이수 9명 · 대상 49명" [ref=e98] [cursor=pointer]:
+            - generic [ref=e99]: TQC본부
+            - generic [ref=e101]: 0.0%
+            - generic [ref=e102]: ›
+            - generic: 미이수 9명 · 대상 49명
+          - button "온라인사업본부 0.0% › 미이수 16명 · 대상 89명" [ref=e103] [cursor=pointer]:
+            - generic [ref=e104]: 온라인사업본부
+            - generic [ref=e106]: 0.0%
+            - generic [ref=e107]: ›
+            - generic: 미이수 16명 · 대상 89명
+          - button "경영지원실 0.0% › 미이수 2명 · 대상 12명" [ref=e108] [cursor=pointer]:
+            - generic [ref=e109]: 경영지원실
+            - generic [ref=e111]: 0.0%
+            - generic [ref=e112]: ›
+            - generic: 미이수 2명 · 대상 12명
+          - button "IT본부 0.0% › 미이수 9명 · 대상 60명" [ref=e113] [cursor=pointer]:
+            - generic [ref=e114]: IT본부
+            - generic [ref=e116]: 0.0%
+            - generic [ref=e117]: ›
+            - generic: 미이수 9명 · 대상 60명
+          - button "물동본부 0.0% › 미이수 3명 · 대상 26명" [ref=e118] [cursor=pointer]:
+            - generic [ref=e119]: 물동본부
+            - generic [ref=e121]: 0.0%
+            - generic [ref=e122]: ›
+            - generic: 미이수 3명 · 대상 26명
+          - button "대표직속 0.0% › 미이수 4명 · 대상 40명" [ref=e123] [cursor=pointer]:
+            - generic [ref=e124]: 대표직속
+            - generic [ref=e126]: 0.0%
+            - generic [ref=e127]: ›
+            - generic: 미이수 4명 · 대상 40명
+          - button "서비스지원 0.0% › 미이수 1명 · 대상 80명" [ref=e128] [cursor=pointer]:
+            - generic [ref=e129]: 서비스지원
+            - generic [ref=e131]: 0.0%
+            - generic [ref=e132]: ›
+            - generic: 미이수 1명 · 대상 80명
+    - generic [ref=e133]:
+      - button "↓ 엑셀 다운로드" [ref=e134] [cursor=pointer]:
+        - generic [ref=e135]: ↓
+        - text: 엑셀 다운로드
+      - generic [ref=e136]: 본부별·부서별 집계 · 미이수자 명단 188명 · 94개 부서 상세 (3시트)
+    - generic [ref=e137]:
+      - generic [ref=e138]:
+        - generic [ref=e139]: 우수 90%↑
+        - generic [ref=e141]: 보통 70~89%
+        - generic [ref=e143]: 미흡 50~69%
+        - generic [ref=e145]: 집중 50%↓
+      - text: 원본 명단 직접 재집계 (원본 본부요약과 일치 검증 완료) · 기준일 2026. 6. 15.(월)
+  - generic:
+    - dialog:
+      - generic:
+        - button "닫기": ✕
+      - generic:
+        - table:
+          - rowgroup:
+            - row "부서 대상 이수 미이수 이수율":
+              - columnheader "부서"
+              - columnheader "대상"
+              - columnheader "이수"
+              - columnheader "미이수"
+              - columnheader "이수율"
+          - rowgroup
+  - button "↑"
+  - generic:
+    - generic: ✓
+    - generic: 엑셀 파일을 다운로드했습니다
