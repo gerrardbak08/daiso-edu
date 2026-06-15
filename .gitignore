@@ -1,2 +1,9 @@
 # Local Netlify folder
 .netlify
+
+# macOS
+.DS_Store
+
+# 개인정보(실명·사번·전화번호) 포함 원본 — 공개 저장소 업로드 금지
+*.xls
+*.xlsx
