@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026년 상반기 정기안전보건교육 이수현황</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic','맑은 고딕',sans-serif;background:#f4f6f9;color:#1a1a2e;font-size:14px}
+a{text-decoration:none;color:inherit}
+
+/* 헤더 */
+.site-header{background:#c8102e;color:#fff;padding:10px 20px;display:flex;align-items:center;gap:10px;font-size:12px}
+.site-header .logo{font-weight:700;font-size:15px;letter-spacing:-0.3px}
+.site-header .divider{opacity:.5}
+
+/* 히어로 */
+.hero{background:linear-gradient(135deg,#c8102e 0%,#9b0a23 100%);color:#fff;padding:28px 24px 20px}
+.hero h1{font-size:20px;font-weight:700;margin-bottom:10px;letter-spacing:-0.5px}
+.hero .meta{font-size:12px;opacity:.85;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.hero .meta span{background:rgba(255,255,255,.15);padding:3px 8px;border-radius:20px}
+
+/* 전사 요약 카드 */
+.summary-wrap{background:#fff;margin:16px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:20px;display:flex;align-items:center;gap:20px}
+.donut-wrap{position:relative;width:110px;height:110px;flex-shrink:0}
+.donut-wrap svg{transform:rotate(-90deg)}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-center .rate{font-size:26px;font-weight:800;color:#c8102e;line-height:1}
+.donut-center .label{font-size:10px;color:#666;margin-top:2px}
+.summary-info{flex:1}
+.summary-info .title{font-size:13px;color:#666;margin-bottom:10px}
+.summary-stats{display:flex;gap:12px}
+.stat-box{flex:1;text-align:center;padding:10px 6px;border-radius:8px}
+.stat-box.comp{background:#eaf4ea}
+.stat-box.incomp{background:#fdecea}
+.stat-box .num{font-size:20px;font-weight:800;line-height:1}
+.stat-box.comp .num{color:#2e7d32}
+.stat-box.incomp .num{color:#c8102e}
+.stat-box .lbl{font-size:11px;color:#666;margin-top:3px}
+.summary-info .total-info{font-size:11px;color:#999;margin-top:10px;text-align:center}
+
+/* 최우선 섹션 */
+.section{margin:0 16px 16px}
+.section-title{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.section-title::before{content:'';display:inline-block;width:3px;height:14px;background:#c8102e;border-radius:2px}
+
+.priority-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.priority-card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 6px rgba(0,0,0,.07);border-left:3px solid #c8102e}
+.priority-card .dept-name{font-size:11px;color:#666;margin-bottom:2px}
+.priority-card .hq-name{font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:6px}
+.priority-card .non-count{font-size:18px;font-weight:800;color:#c8102e;line-height:1}
+.priority-card .non-label{font-size:10px;color:#999}
+.priority-card .rate-badge{display:inline-block;margin-top:4px;font-size:11px;background:#fdecea;color:#c8102e;padding:2px 7px;border-radius:20px;font-weight:600}
+
+/* 본부별 이수현황 */
+.chart-section{margin:0 16px 16px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:16px}
+.chart-meta{font-size:11px;color:#999;margin-bottom:4px}
+.avg-line-label{font-size:11px;color:#666;margin-bottom:12px}
+.avg-line-label span{background:#e8e8e8;padding:2px 8px;border-radius:20px}
+
+.hq-row{margin-bottom:10px;cursor:pointer}
+.hq-row:last-child{margin-bottom:0}
+.hq-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.hq-name-label{font-size:13px;font-weight:600;color:#1a1a2e;display:flex;align-items:center;gap:6px}
+.status-badge{font-size:10px;padding:2px 6px;border-radius:20px;font-weight:600}
+.badge-excellent{background:#e3f2fd;color:#1565c0}
+.badge-good{background:#e8f5e9;color:#2e7d32}
+.badge-fair{background:#fff8e1;color:#f57f17}
+.badge-focus{background:#fdecea;color:#c8102e}
+.hq-rate{font-size:13px;font-weight:700}
+.bar-track{background:#f0f0f0;border-radius:6px;height:10px;position:relative;overflow:visible}
+.bar-fill{height:100%;border-radius:6px;transition:width .6s ease}
+.bar-avg{position:absolute;top:-4px;height:18px;width:2px;background:#888;border-radius:1px}
+.hq-sub{font-size:11px;color:#999;margin-top:3px;display:flex;justify-content:space-between}
+
+/* 부서 상세 패널 */
+.dept-panel{display:none;background:#f9f9fb;border-radius:8px;margin-top:8px;overflow:hidden}
+.dept-panel.open{display:block}
+.dept-table{width:100%;border-collapse:collapse}
+.dept-table th{background:#f0f0f4;font-size:11px;color:#666;padding:7px 10px;text-align:left;font-weight:600}
+.dept-table td{font-size:12px;padding:7px 10px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+.dept-table tr:last-child td{border-bottom:none}
+.mini-bar-track{background:#e8e8e8;border-radius:3px;height:6px;width:60px;display:inline-block;vertical-align:middle;margin-right:4px}
+.mini-bar-fill{height:100%;border-radius:3px}
+
+/* 범례 */
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 16px 16px;font-size:11px}
+.legend-item{display:flex;align-items:center;gap:4px;background:#fff;padding:5px 10px;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+
+/* 다운로드 버튼 */
+.download-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 16px 8px;padding:13px;background:#1a1a2e;color:#fff;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;width:calc(100% - 32px)}
+.download-btn:hover{background:#2d2d4e}
+
+/* footer */
+.footer{text-align:center;font-size:11px;color:#aaa;padding:16px;margin-bottom:8px}
+
+/* 토스트 */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a2e;color:#fff;padding:10px 20px;border-radius:24px;font-size:13px;opacity:0;transition:all .4s;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* 상태분포 */
+.dist-bar{display:flex;border-radius:6px;overflow:hidden;height:10px;margin-bottom:8px}
+.dist-seg{height:100%}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="logo">㈜아성다이소</span>
+  <span class="divider">·</span>
+  <span>인사총무본부 안전보건팀</span>
+</header>
+
+<div class="hero">
+  <h1>2026년 상반기 정기안전보건교육 이수현황</h1>
+  <div class="meta">
+    <span>대상: 본사 재직자 887명</span>
+    <span>기준일 2026. 6. 15.(월)</span>
+    <span>이수기준 교육과정 100% 수료</span>
+  </div>
+</div>
+
+<!-- 전사 요약 -->
+<div class="summary-wrap">
+  <div class="donut-wrap">
+    <svg width="110" height="110" viewBox="0 0 110 110">
+      <circle cx="55" cy="55" r="42" fill="none" stroke="#f0f0f0" stroke-width="13"/>
+      <circle cx="55" cy="55" r="42" fill="none" stroke="#c8102e" stroke-width="13"
+        stroke-dasharray="263.9 263.9"
+        stroke-dashoffset="55.4"
+        stroke-linecap="round"/>
+    </svg>
+    <div class="donut-center">
+      <div class="rate">78.8%</div>
+      <div class="label">전사 이수율</div>
+    </div>
+  </div>
+  <div class="summary-info">
+    <div class="title">전사 이수현황</div>
+    <div class="summary-stats">
+      <div class="stat-box comp"><div class="num">699</div><div class="lbl">이수</div></div>
+      <div class="stat-box incomp"><div class="num">188</div><div class="lbl">미이수</div></div>
+    </div>
+    <div class="total-info">교육 대상 887명 · 관리 본부 12개 · 부서 96개</div>
+  </div>
+</div>
+
+<!-- 최우선 관리 대상 -->
+<div class="section">
+  <div class="section-title">최우선 관리 대상 <span style="font-size:11px;color:#c8102e;font-weight:400">(미이수 5명↑ &amp; 이수율 70% 미만)</span></div>
+  <div class="priority-grid">
+    <div class="priority-card">
+      <div class="dept-name">디자인본부</div>
+      <div class="hq-name">(부서 미구분)</div>
+      <div class="non-count">8<span class="non-label">명 미이수</span></div>
+      <div class="rate-badge">–</div>
+    </div>
+    <div class="priority-card">
+      <div class="dept-name">영업본부</div>
+      <div class="hq-name">관악/평택/안산영업부</div>
+      <div class="non-count">11<span class="non-label">명 미이수</span></div>
+      <div class="rate-badge">미흡</div>
+    </div>
+    <div class="priority-card">
+      <div class="dept-name">인사총무본부</div>
+      <div class="hq-name">인사관리부</div>
+      <div class="non-count">10<span class="non-label">명 미이수</span></div>
+      <div class="rate-badge">미흡</div>
+    </div>
+    <div class="priority-card">
+      <div class="dept-name">영업본부</div>
+      <div class="hq-name">수원/용인영업부</div>
+      <div class="non-count">7<span class="non-label">명 미이수</span></div>
+      <div class="rate-badge">미흡</div>
+    </div>
+    <div class="priority-card">
+      <div class="dept-name">영업본부</div>
+      <div class="hq-name">인천영업부</div>
+      <div class="non-count">7<span class="non-label">명 미이수</span></div>
+      <div class="rate-badge">미흡</div>
+    </div>
+    <div class="priority-card">
+      <div class="dept-name">온라인사업본부</div>
+      <div class="hq-name">온라인MD부</div>
+      <div class="non-count">7<span class="non-label">명 미이수</span></div>
+      <div class="rate-badge">미흡</div>
+    </div>
+  </div>
+</div>
+
+<!-- 본부별 이수현황 -->
+<div class="chart-section">
+  <div class="section-title" style="margin-bottom:8px">본부·부서별 이수현황</div>
+  <div class="chart-meta">본부 클릭 시 부서 상세 · 이수율 낮은 순</div>
+
+  <!-- 상태 분포 -->
+  <div style="margin:10px 0 6px;font-size:11px;color:#666">본부 상태 분포</div>
+  <div class="dist-bar">
+    <div class="dist-seg" style="width:16.7%;background:#1565c0" title="우수 2개"></div>
+    <div class="dist-seg" style="width:66.6%;background:#2e7d32" title="보통 8개"></div>
+    <div class="dist-seg" style="width:16.7%;background:#e65100" title="미흡 2개"></div>
+  </div>
+  <div style="display:flex;gap:8px;font-size:10px;color:#666;margin-bottom:12px">
+    <span>🔵 우수 2</span><span>🟢 보통 8</span><span>🟠 미흡 2</span><span>🔴 집중 0</span>
+  </div>
+  <div class="avg-line-label"><span>막대 위 점선 = 전사 평균 78.8%</span></div>
+
+  <!-- 각 본부 행: 이수율 낮은 순 -->
+  <!-- 인사총무본부 63.9% 미흡 -->
+  <div class="hq-row" onclick="toggleDept('hr')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-fair">미흡</span>인사총무본부</div>
+      <div class="hq-rate" style="color:#e65100">63.9%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:63.9%;background:#e65100"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 13명 · 대상 36명</span><span>이수 23명</span></div>
+    <div class="dept-panel" id="dept-hr">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>인사관리부</td><td>–</td><td>–</td><td>10</td><td><div class="mini-bar-track"><div class="mini-bar-fill" style="width:30%;background:#c8102e"></div></div>낮음</td></tr>
+        <tr><td>총무관리부</td><td>–</td><td>–</td><td>3</td><td><div class="mini-bar-track"><div class="mini-bar-fill" style="width:60%;background:#f57f17"></div></div>보통</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 디자인본부 68.7% 미흡 -->
+  <div class="hq-row" onclick="toggleDept('design')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-fair">미흡</span>디자인본부</div>
+      <div class="hq-rate" style="color:#e65100">68.7%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:68.7%;background:#e65100"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 26명 · 대상 83명</span><span>이수 57명</span></div>
+    <div class="dept-panel" id="dept-design">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>공구/디지털/수납/케미칼디자인부</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+        <tr><td>미용/패션/문구/식품디자인부</td><td>–</td><td>–</td><td>6</td><td>–</td></tr>
+        <tr><td>컨셉디자인부</td><td>–</td><td>–</td><td>3</td><td>–</td></tr>
+        <tr><td>총괄비쥬얼부</td><td>–</td><td>–</td><td>7</td><td>–</td></tr>
+        <tr><td>(부서 미구분)</td><td>–</td><td>–</td><td>8</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 영업본부 75.7% 보통 -->
+  <div class="hq-row" onclick="toggleDept('sales')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-good">보통</span>영업본부</div>
+      <div class="hq-rate" style="color:#2e7d32">75.7%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:75.7%;background:#2e7d32"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 71명 · 대상 292명</span><span>이수 221명</span></div>
+    <div class="dept-panel" id="dept-sales">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>인천영업부</td><td>–</td><td>–</td><td>7</td><td>–</td></tr>
+        <tr><td>강북영업부</td><td>–</td><td>–</td><td>3</td><td>–</td></tr>
+        <tr><td>강남/구리영업부</td><td>–</td><td>–</td><td>5</td><td>–</td></tr>
+        <tr><td>수원/용인영업부</td><td>–</td><td>–</td><td>7</td><td>–</td></tr>
+        <tr><td>관악/평택/안산영업부</td><td>–</td><td>–</td><td>11</td><td>–</td></tr>
+        <tr><td>강원영업부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>충청영업부</td><td>–</td><td>–</td><td>5</td><td>–</td></tr>
+        <tr><td>호남영업부</td><td>–</td><td>–</td><td>3</td><td>–</td></tr>
+        <tr><td>경남영업부</td><td>–</td><td>–</td><td>3</td><td>–</td></tr>
+        <tr><td>매장재고관리부</td><td>–</td><td>–</td><td>3</td><td>–</td></tr>
+        <tr><td>인테리어부</td><td>–</td><td>–</td><td>4</td><td>–</td></tr>
+        <tr><td>오픈지원부</td><td>–</td><td>–</td><td>3</td><td>–</td></tr>
+        <tr><td>영업관리부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>현장개선부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>영업지원부문</td><td>–</td><td>–</td><td>5</td><td>–</td></tr>
+        <tr><td>매장지원부문</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+        <tr><td>지방영업부문</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>(부서 미구분)</td><td>–</td><td>–</td><td>6</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 재경본부 78.9% 보통 -->
+  <div class="hq-row" onclick="toggleDept('finance')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-good">보통</span>재경본부</div>
+      <div class="hq-rate" style="color:#2e7d32">78.9%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:78.9%;background:#2e7d32"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 4명 · 대상 19명</span><span>이수 15명</span></div>
+    <div class="dept-panel" id="dept-finance">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>관리회계부</td><td>–</td><td>–</td><td>3</td><td>–</td></tr>
+        <tr><td>자금부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- TQC본부 81.6% 보통 -->
+  <div class="hq-row" onclick="toggleDept('tqc')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-good">보통</span>TQC본부</div>
+      <div class="hq-rate" style="color:#2e7d32">81.6%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:81.6%;background:#2e7d32"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 9명 · 대상 49명</span><span>이수 40명</span></div>
+    <div class="dept-panel" id="dept-tqc">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>품질관리부</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+        <tr><td>준법대외협력부</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+        <tr><td>(부서 미구분)</td><td>–</td><td>–</td><td>5</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 온라인사업본부 82.0% 보통 -->
+  <div class="hq-row" onclick="toggleDept('online')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-good">보통</span>온라인사업본부</div>
+      <div class="hq-rate" style="color:#2e7d32">82.0%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:82%;background:#2e7d32"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 16명 · 대상 89명</span><span>이수 73명</span></div>
+    <div class="dept-panel" id="dept-online">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>주문/결제개발부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>전시/검색기획부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>주문/결제기획부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>온라인마케팅부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>온라인MD부</td><td>–</td><td>–</td><td>7</td><td>–</td></tr>
+        <tr><td>온라인사업본부(직속)</td><td>–</td><td>–</td><td>4</td><td>–</td></tr>
+        <tr><td>(부서 미구분)</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 경영지원실 83.3% 보통 -->
+  <div class="hq-row" onclick="toggleDept('mgmt')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-good">보통</span>경영지원실</div>
+      <div class="hq-rate" style="color:#2e7d32">83.3%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:83.3%;background:#2e7d32"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 2명 · 대상 12명</span><span>이수 10명</span></div>
+    <div class="dept-panel" id="dept-mgmt">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>윤리경영부</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- IT본부 85.0% 보통 -->
+  <div class="hq-row" onclick="toggleDept('it')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-good">보통</span>IT본부</div>
+      <div class="hq-rate" style="color:#2e7d32">85.0%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:85%;background:#2e7d32"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 9명 · 대상 60명</span><span>이수 51명</span></div>
+    <div class="dept-panel" id="dept-it">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>상품/물동시스템부</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+        <tr><td>영업/재무시스템부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>관계사/HR시스템부</td><td>–</td><td>–</td><td>3</td><td>–</td></tr>
+        <tr><td>보안인프라부</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+        <tr><td>AI/전사공용시스템부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 물동본부 88.5% 보통 -->
+  <div class="hq-row" onclick="toggleDept('logistics')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-good">보통</span>물동본부</div>
+      <div class="hq-rate" style="color:#2e7d32">88.5%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:88.5%;background:#2e7d32"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 3명 · 대상 26명</span><span>이수 23명</span></div>
+    <div class="dept-panel" id="dept-logistics">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>고객/데이터분석부</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+        <tr><td>물동운영부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 대표직속 90.0% 우수 -->
+  <div class="hq-row" onclick="toggleDept('ceo')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-excellent">우수</span>대표직속</div>
+      <div class="hq-rate" style="color:#1565c0">90.0%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:90%;background:#1565c0"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 4명 · 대상 40명</span><span>이수 36명</span></div>
+    <div class="dept-panel" id="dept-ceo">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>법무지원부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>고객만족부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>운영지원부</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 상품본부 70.3% 보통 -->
+  <div class="hq-row" onclick="toggleDept('product')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-good">보통</span>상품본부</div>
+      <div class="hq-rate" style="color:#2e7d32">70.3%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:70.3%;background:#2e7d32"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 30명 · 대상 101명</span><span>이수 71명</span></div>
+    <div class="dept-panel" id="dept-product">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>도기/유리/공구/전기/레저부</td><td>–</td><td>–</td><td>4</td><td>–</td></tr>
+        <tr><td>주방/일회/수납용품부</td><td>–</td><td>–</td><td>4</td><td>–</td></tr>
+        <tr><td>욕실/청소/위생/케미칼부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>인테리어/패브릭/조화부</td><td>–</td><td>–</td><td>2</td><td>–</td></tr>
+        <tr><td>사무/문구/포장부</td><td>–</td><td>–</td><td>4</td><td>–</td></tr>
+        <tr><td>식품/건강/반려동물부</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>미용/화장품부</td><td>–</td><td>–</td><td>5</td><td>–</td></tr>
+        <tr><td>의류/패션잡화부</td><td>–</td><td>–</td><td>3</td><td>–</td></tr>
+        <tr><td>상품관리부문</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>미용/패션/식품/인테리어개발부문</td><td>–</td><td>–</td><td>1</td><td>–</td></tr>
+        <tr><td>(부서 미구분)</td><td>–</td><td>–</td><td>4</td><td>–</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 서비스지원 98.8% 우수 -->
+  <div class="hq-row" onclick="toggleDept('service')">
+    <div class="hq-header">
+      <div class="hq-name-label"><span class="status-badge badge-excellent">우수</span>서비스지원</div>
+      <div class="hq-rate" style="color:#1565c0">98.8%›</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:98.8%;background:#1565c0"></div>
+      <div class="bar-avg" style="left:78.8%"></div>
+    </div>
+    <div class="hq-sub"><span>미이수 1명 · 대상 80명</span><span>이수 79명</span></div>
+    <div class="dept-panel" id="dept-service">
+      <table class="dept-table">
+        <tr><th>부서</th><th>대상</th><th>이수</th><th>미이수</th><th>이수율</th></tr>
+        <tr><td>서비스지원</td><td>80</td><td>79</td><td>1</td><td>98.8%</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 범례 -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#1565c0"></div>우수 90%↑</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2e7d32"></div>보통 70~89%</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e65100"></div>미흡 50~69%</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c8102e"></div>집중 50%↓</div>
+</div>
+
+<!-- 다운로드 버튼 -->
+<button class="download-btn" onclick="downloadExcel()">
+  ↓ 엑셀 다운로드
+  <span style="font-size:11px;font-weight:400;opacity:.7">본부별·부서별 집계 · 미이수자 명단 188명 · 부서 상세</span>
+</button>
+
+<div class="footer">
+  원본 명단 직접 재집계 · 기준일 2026. 6. 15.(월)
+</div>
+
+<div class="toast" id="toast">✓ 엑셀 파일을 다운로드했습니다</div>
+
+<script>
+function toggleDept(id) {
+  const el = document.getElementById('dept-' + id);
+  el.classList.toggle('open');
+}
+
+function downloadExcel() {
+  // 미이수자 명단 데이터
+  const rows = [
+    ["NO","분류","사번","성명","직책","본부","부서","팀","전화번호","재직여부","이수율(%)"],
+    [1,"관리","AD1906014","김수호","부서장","IT본부","상품/물동시스템부","","010-9786-0643","재직",5],
+    [2,"관리","AD2306020","김윤경","","IT본부","상품/물동시스템부","상품/품질시스템팀","010-6657-7649","재직",76],
+    [3,"관리","AD2306040","김정서","","IT본부","영업/재무시스템부","영업시스템팀","010-3881-9667","재직",69],
+    [4,"관리","AD2201013","김인기","","IT본부","관계사/HR시스템부","관계사시스템팀","010-4627-6277","재직",30],
+    [5,"관리","AD2306053","남채희","","IT본부","관계사/HR시스템부","HR/DMS시스템팀","010-2858-2248","재직",15],
+    [6,"관리","AD2306051","박여명","","IT본부","관계사/HR시스템부","HR/DMS시스템팀","010-4081-8409","재직",78],
+    [7,"관리","AD2201023","김창순","팀장","IT본부","보안인프라부","정보보안팀","010-7343-6261","재직",84],
+    [8,"관리","AD2201021","한정현","","IT본부","보안인프라부","인프라팀","010-5636-3866","재직",72],
+    [9,"관리","AD2306008","이승민","","IT본부","AI/전사공용시스템부","AI/전사공용시스템팀","010-6474-1050","재직",61],
+    [10,"관리","AD1812028","김지현","","TQC본부","품질관리부","상품안전팀","010-2100-3595","재직",53],
+    [11,"관리","AD2506047","차소연","","TQC본부","품질관리부","패션/뷰티/식품품질관리팀","010-5438-7170","재직",46],
+    [12,"관리","AD2208007","홍성경","","TQC본부","(부서 미구분)","현장사원교육팀","010-8894-9218","재직",53],
+    [13,"관리","AD2306056","곽채람","","TQC본부","(부서 미구분)","현장사원교육팀","010-5113-4557","재직",23],
+    [14,"관리","AD2501004","김자영","","TQC본부","(부서 미구분)","현장사원교육팀","010-5321-3438","재직",4],
+    [15,"관리","AD1601001","조정자","팀장","TQC본부","(부서 미구분)","전문강사팀","010-3811-3057","재직",84],
+    [16,"관리","AD2206009","정겨운","","TQC본부","(부서 미구분)","전문강사팀","010-9269-0427","재직",76],
+    [17,"관리","AD2503001","구수본","팀장","TQC본부","준법대외협력부","대외협력팀","010-6206-0236","재직",65],
+    [18,"관리","AD0704003","심수연","","TQC본부","준법대외협력부","상생협력팀","010-7379-4516","재직",46],
+    [19,"관리","AD1612018","곽민지","","경영지원실","윤리경영부","","010-8388-8374","재직",69],
+    [20,"임원","AD2301001","조명신","부서장","경영지원실","윤리경영부","","010-2245-5138","재직",30],
+    [21,"관리","AD1707004","임동민","팀장","대표직속","법무지원부","법무팀","010-6561-2044","재직",92],
+    [22,"관리","AD2103001","여현청","부서장","대표직속","고객만족부","","010-4725-8230","재직",7],
+    [23,"관리","AD1204001","임형석","부서장","대표직속","운영지원부","","010-7454-5018","재직",69],
+    [24,"관리","AD2102008","서승현","","대표직속","운영지원부","운영지원팀","010-3427-8018","재직",92],
+    [25,"관리","AD2306049","김상민","","디자인본부","공구/디지털/수납/케미칼디자인부","공구/전기/디지털/일회용품디자인팀","010-3172-7895","재직",52],
+    [26,"관리","AD2111002","박송이","","디자인본부","공구/디지털/수납/케미칼디자인부","수납/케미칼/위생/홍보디자인팀","010-4089-2250","재직",76],
+    [27,"관리","AD1506004","정선욱","팀장","디자인본부","미용/패션/문구/식품디자인부","패션/악세서리/인테리어디자인팀","010-5312-4205","재직",85],
+    [28,"관리","AD2306057","이예림","","디자인본부","미용/패션/문구/식품디자인부","패션/악세서리/인테리어디자인팀","010-3889-4297","재직",23],
+    [29,"관리","AD1111022","유미정","팀장","디자인본부","미용/패션/문구/식품디자인부","미용/화장품/식품디자인팀","010-4098-5392","재직",46],
+    [30,"관리","AD1401007","오선미","","디자인본부","미용/패션/문구/식품디자인부","미용/화장품/식품디자인팀","010-8662-6361","재직",69],
+    [31,"관리","AD2111001","이주현","","디자인본부","미용/패션/문구/식품디자인부","미용/화장품/식품디자인팀","010-6518-2011","재직",26],
+    [32,"관리","AD1706059","윤지영","팀장","디자인본부","미용/패션/문구/식품디자인부","학용문구/미술/스티커디자인팀","010-8690-2602","재직",76],
+    [33,"관리","AD1901002","김정진","팀장","디자인본부","(부서 미구분)","영상제작팀","010-8876-3058","재직",15],
+    [34,"관리","AD2011003","박이슬","","디자인본부","(부서 미구분)","영상제작팀","010-8955-6149","재직",67],
+    [35,"관리","AD2509004","정현도","부서장","디자인본부","컨셉디자인부","","010-3942-8107","재직",15],
+    [36,"관리","AD1606043","이화정","","디자인본부","컨셉디자인부","시즌/시리즈디자인팀","010-2888-9910","재직",61],
+    [37,"관리","AD2111004","이연희","","디자인본부","컨셉디자인부","시즌/시리즈디자인팀","010-6674-7979","재직",7],
+    [38,"관리","AD1706001","신지연","총괄부서장","디자인본부","(부서 미구분)","","010-2446-9778","재직",61],
+    [39,"관리","AD1912022","이상봉","","디자인본부","(부서 미구분)","동부권VMD팀","010-8697-5178","재직",75],
+    [40,"관리","AD0301018","임경미","팀장","디자인본부","(부서 미구분)","서부권VMD팀","010-9433-0842","재직",46],
+    [41,"관리","AD1707001","김안나","팀장","디자인본부","(부서 미구분)","상품연출팀","010-2437-7609","재직",17],
+    [42,"관리","AD1701004","진소희","팀장","디자인본부","(부서 미구분)","매장그래픽팀","010-3923-9904","재직",7],
+    [43,"관리","AD1907007","이주현","","디자인본부","(부서 미구분)","매장그래픽팀","010-2958-7471","재직",46],
+    [44,"현장","AD6148223","윤솔비","","디자인본부","총괄비쥬얼부","서부권VMD팀","010-5923-5980","재직",79],
+    [45,"현장","AD6150699","이명진","","디자인본부","총괄비쥬얼부","매장그래픽팀","010-6214-4735","재직",53],
+    [46,"현장","AD6153423","박경빈","","디자인본부","총괄비쥬얼부","동부권VMD팀","010-4159-2805","재직",43],
+    [47,"현장","AD6153425","최다연","","디자인본부","총괄비쥬얼부","동부권VMD팀","010-5478-4738","재직",63],
+    [48,"현장","AD6154142","문채원","","디자인본부","총괄비쥬얼부","서부권VMD팀","010-4642-9507","재직",67],
+    [49,"현장","AD6155028","하숙지","","디자인본부","총괄비쥬얼부","서부권VMD팀","010-8509-8811","재직",53],
+    [50,"현장","AD6157807","신지윤","","디자인본부","총괄비쥬얼부","매장그래픽팀","010-5494-5294","재직",30],
+    [51,"관리","AD1706052","이자형","","물동본부","고객/데이터분석부","데이터분석팀","010-2382-4440","재직",92],
+    [52,"관리","AD2306012","지다영","","물동본부","고객/데이터분석부","데이터분석팀","010-7636-5025","재직",75],
+    [53,"관리","AD1506006","김경남","팀장","물동본부","물동운영부","자동주문팀","010-5152-3584","재직",14],
+    [54,"관리","AD2410030","이수진","","상품본부","(부서 미구분)","발주운영관리팀","010-4728-5227","재직",92],
+    [55,"관리","AD1512010","문찬종","팀장","상품본부","도기/유리/공구/전기/레저부","공구/전기/디지털팀","010-4325-8871","재직",69],
+    [56,"관리","AD2208020","박수정","","상품본부","도기/유리/공구/전기/레저부","공구/전기/주방/일회재발주팀","010-3115-0457","재직",84],
+    [57,"관리","AD1303011","육근호","부서장(대행)","상품본부","주방/일회/수납용품부","","010-9582-5055","재직",46],
+    [58,"관리","AD2302008","방소연","","상품본부","주방/일회/수납용품부","주방/일회용품팀","010-7707-1067","재직",2],
+    [59,"관리","AD1506023","김한별","팀장","상품본부","주방/일회/수납용품부","수납/정리팀","010-4503-7245","재직",76],
+    [60,"관리","AD2102016","백경민","","상품본부","주방/일회/수납용품부","수납/정리팀","010-8516-9875","재직",8],
+    [61,"관리","AD2208044","김효선","","상품본부","도기/유리/공구/전기/레저부","공구/전기/주방/일회재발주팀","010-9722-1752","재직",23],
+    [62,"관리","AD2506041","김아원","","상품본부","도기/유리/공구/전기/레저부","공구/전기/주방/일회재발주팀","010-8299-7468","재직",45],
+    [63,"관리","AD2410014","박유민","","상품본부","욕실/청소/위생/케미칼부","욕실/청소/위생/케미칼재발주팀","010-2829-9204","재직",16],
+    [64,"관리","AD2306074","제민지","","상품본부","인테리어/패브릭/조화부","수예/패브릭팀","010-4929-7511","재직",85],
+    [65,"관리","AD2208017","이상진","","상품본부","인테리어/패브릭/조화부","조화/원예/인테리어팀","010-4663-1426","재직",15],
+    [66,"관리","AD1105009","강인평","부서장","상품본부","사무/문구/포장부","","010-8973-6604","재직",43],
+    [67,"관리","AD1111010","김형관","팀장(대행)","상품본부","사무/문구/포장부","사무/문구/포장재발주팀","010-9174-1884","재직",73],
+    [68,"관리","AD2306044","박리현","","상품본부","사무/문구/포장부","사무/문구/포장재발주팀","010-5188-9929","재직",76],
+    [69,"관리","AD2306071","신재영","","상품본부","사무/문구/포장부","사무/문구/포장용품팀","010-9418-1792","재직",15],
+    [70,"관리","AD1606048","김승연","팀장(대행)","상품본부","식품/건강/반려동물부","식품/건강/반려동물재발주팀","010-4019-0538","재직",7],
+    [71,"관리","AD1509003","안희경","팀장","상품본부","(부서 미구분)","52주/SNS운영팀","010-6725-9870","재직",69],
+    [72,"관리","AD2206010","김한빛","","상품본부","(부서 미구분)","52주/SNS운영팀","010-5730-1789","재직",6],
+    [73,"관리","AD2404004","박도영","","상품본부","(부서 미구분)","52주/SNS운영팀","010-4941-8517","재직",92],
+    [74,"임원","AD2110007","윤정빈","부서장","상품본부","미용/화장품부","","010-4400-4525","재직",18],
+    [75,"관리","AD2409004","문서현","팀장","상품본부","미용/화장품부","기초/남성/헤어/바디팀","010-6518-6608","재직",40],
+    [76,"관리","AD2206003","유진웅","","상품본부","미용/화장품부","기초/남성/헤어/바디팀","010-4734-6558","재직",4],
+    [77,"관리","AD2306063","유정민","","상품본부","미용/화장품부","색조/미용소품팀","010-9878-2707","재직",53],
+    [78,"관리","AD2401002","엄채원","","상품본부","미용/화장품부","색조/미용소품팀","010-9763-3230","재직",30],
+    [79,"관리","AD2506017","박종휘","부서장","상품본부","의류/패션잡화부","","010-8385-4895","재직",4],
+    [80,"관리","AD1706032","박서연","팀장","상품본부","의류/패션잡화부","의류/양말팀","010-3424-8433","재직",0],
+    [81,"관리","AD2506019","김솔아","팀장","상품본부","의류/패션잡화부","액세서리/패션잡화팀","010-4123-5920","재직",23],
+    [82,"임원","AD2401004","주성호","부문장","상품본부","상품관리부문","","010-2466-8561","재직",92],
+    [83,"임원","AD2502001","김희선","부문장","상품본부","미용/패션/식품/인테리어개발부문","","010-5736-2929","재직",63],
+    [84,"현장","AD6156248","이재욱","","서비스지원","서비스지원","서비스지원","010-3520-0623","재직",97],
+    [85,"관리","AD2410006","김태오","","영업본부","인천영업부","남인천팀","010-9417-9976","재직",7],
+    [86,"관리","AD2506079","김다연","","영업본부","인천영업부","남인천팀","010-7197-2986","재직",35],
+    [87,"관리","AD1512018","심윤수","","영업본부","인천영업부","북인천팀","010-3916-2301","재직",15],
+    [88,"관리","AD2306069","이현지","팀장(대행)","영업본부","인천영업부","일산팀","010-3042-4456","재직",84],
+    [89,"관리","AD2207006","김경미","","영업본부","인천영업부","북인천팀","010-4918-4935","재직",68],
+    [90,"관리","AD2306060","윤민영","","영업본부","인천영업부","북인천팀","010-4165-6890","재직",29],
+    [91,"관리","AD2207024","김은애","","영업본부","인천영업부","일산팀","010-5051-6301","재직",84],
+    [92,"관리","AD2306059","김정욱","","영업본부","강북영업부","신촌팀","010-4874-8363","재직",84],
+    [93,"관리","AD1506018","심문한","팀장(대행)","영업본부","수원/용인영업부","용인팀","010-3019-3938","재직",23],
+    [94,"관리","AD2208014","최성규","","영업본부","강북영업부","강북팀","010-9970-7348","재직",1],
+    [95,"관리","AD2410020","홍승의","","영업본부","강북영업부","강북팀","010-3839-4965","재직",17],
+    [96,"관리","AD1912026","전정은","팀장","영업본부","강남/구리영업부","강남팀","010-8828-8180","재직",70],
+    [97,"관리","AD2306076","이지윤","","영업본부","강남/구리영업부","강남팀","010-9670-0288","재직",33],
+    [98,"관리","AD2506070","변윤지","","영업본부","강남/구리영업부","강동팀","010-5234-3752","재직",76],
+    [99,"관리","AD2208010","정연웅","","영업본부","강남/구리영업부","구리팀","010-8967-6067","재직",15],
+    [100,"관리","AD2506078","이윤상","","영업본부","강남/구리영업부","구리팀","010-4076-5643","재직",5],
+    [101,"관리","AD1812012","권용우","팀장","영업본부","관악/평택/안산영업부","관악팀","010-3042-2546","재직",23],
+    [102,"관리","AD2306067","김용찬","","영업본부","관악/평택/안산영업부","관악팀","010-3415-3759","재직",76],
+    [103,"관리","AD2410007","박성훈","","영업본부","관악/평택/안산영업부","관악팀","010-8815-8018","재직",53],
+    [104,"관리","AD2306068","허성일","","영업본부","관악/평택/안산영업부","관악팀","010-7544-4338","재직",46],
+    [105,"관리","AD2506077","임종민","","영업본부","관악/평택/안산영업부","관악팀","010-2551-4307","재직",47],
+    [106,"관리","AD0801002","정윤미","","영업본부","수원/용인영업부","수원팀","010-3716-4885","재직",15],
+    [107,"관리","AD2410012","심윤근","","영업본부","수원/용인영업부","수원팀","010-8876-2470","재직",89],
+    [108,"관리","AD1512030","박정옥","","영업본부","수원/용인영업부","용인팀","010-6440-6383","재직",66],
+    [109,"관리","AD2410003","곽재욱","","영업본부","수원/용인영업부","용인팀","010-7273-8002","재직",84],
+    [110,"관리","AD2306062","정찬우","","영업본부","수원/용인영업부","용인팀","010-8013-3577","재직",3],
+    [111,"관리","AD2506071","이학경","","영업본부","수원/용인영업부","용인팀","010-7939-1423","재직",30],
+    [112,"관리","AD0903014","박은미","","영업본부","관악/평택/안산영업부","평택팀","010-9088-7106","재직",26],
+    [113,"관리","AD2410005","김정환","","영업본부","관악/평택/안산영업부","평택팀","010-8741-0604","재직",23],
+    [114,"관리","AD2506051","조창조","","영업본부","관악/평택/안산영업부","평택팀","010-8377-0180","재직",50],
+    [115,"관리","AD1707002","이오선","팀장","영업본부","관악/평택/안산영업부","안산팀","010-2178-0510","재직",74],
+    [116,"관리","AD2208012","김아름","","영업본부","관악/평택/안산영업부","안산팀","010-3106-2087","재직",65],
+    [117,"관리","AD2306073","김지연","","영업본부","관악/평택/안산영업부","안산팀","010-9824-2363","재직",9],
+    [118,"관리","AD2207023","박선미","","영업본부","강원영업부","춘천원주팀","010-5835-0130","재직",76],
+    [119,"관리","AD0307001","장영숙","부서장","영업본부","충청영업부","","010-3650-4145","재직",7],
+    [120,"관리","AD1612039","김호승","","영업본부","충청영업부","대전팀","010-3227-3117","재직",29],
+    [121,"관리","AD2108046","나기남","","영업본부","충청영업부","대전팀","010-2696-1655","재직",7],
+    [122,"관리","AD2207012","임정화","","영업본부","충청영업부","충남팀","010-2513-1151","재직",7],
+    [123,"관리","AD0604006","홍주현","팀장","영업본부","충청영업부","충청가맹팀","010-9326-0675","재직",30],
+    [124,"관리","AD2108051","윤창한","","영업본부","호남영업부","제주팀","010-5706-2750","재직",84],
+    [125,"관리","AD2306078","최승호","","영업본부","호남영업부","제주팀","010-9218-1201","재직",29],
+    [126,"관리","AD1303021","고은미","팀장","영업본부","호남영업부","호남가맹팀","010-9456-7319","재직",87],
+    [127,"관리","AD2306083","진현경","","영업본부","경남영업부","서부산팀","010-2435-1743","재직",76],
+    [128,"관리","AD1506029","박은영","","영업본부","경남영업부","창원팀","010-6529-0718","재직",1],
+    [129,"관리","AD1606024","김상현","팀장(대행)","영업본부","경남영업부","경남가맹팀","010-5049-0880","재직",12],
+    [130,"관리","AD1606011","김채운","팀장","영업본부","(부서 미구분)","유통관리팀","010-9806-4707","재직",0],
+    [131,"관리","AD1812010","김송아","","영업본부","(부서 미구분)","유통관리팀","010-2201-6986","재직",29],
+    [132,"관리","AD0903008","고문석","팀장","영업본부","(부서 미구분)","가맹서부팀","010-4612-4038","재직",0],
+    [133,"관리","AD1612048","김정숙","","영업본부","(부서 미구분)","가맹서부팀","010-3030-5899","재직",9],
+    [134,"관리","AD2208005","문가란","","영업본부","매장재고관리부","매장판매지원팀","010-9906-4718","재직",7],
+    [135,"관리","AD2207002","박수빈","","영업본부","매장재고관리부","매장판매지원팀","010-2605-4677","재직",7],
+    [136,"관리","AD2506069","전서영","","영업본부","매장재고관리부","매장판매지원팀","010-9880-8408","재직",88],
+    [137,"관리","AD2506066","안근주","","영업본부","영업관리부","매장비용관리팀","010-2990-4080","재직",25],
+    [138,"관리","AD1011001","김동진","팀장","영업본부","인테리어부","인테리어1팀","010-7747-8470","재직",92],
+    [139,"관리","AD1811004","류예진","","영업본부","인테리어부","인테리어1팀","010-9388-1624","재직",61],
+    [140,"관리","AD2206008","김은정","","영업본부","인테리어부","인테리어1팀","010-5119-9332","재직",3],
+    [141,"관리","AD1811006","홍승희","","영업본부","인테리어부","인테리어2팀","010-2655-8102","재직",84],
+    [142,"관리","AD2207017","김새롬","팀장(대행)","영업본부","오픈지원부","수도권동부지원팀","010-2402-5058","재직",38],
+    [143,"관리","AD2207019","전소영","","영업본부","오픈지원부","수도권동부지원팀","010-3164-2832","재직",53],
+    [144,"관리","AD1002023","장기선","팀장","영업본부","오픈지원부","매장리뉴얼팀","010-3442-5500","재직",15],
+    [145,"관리","AD1111007","권덕재","팀장","영업본부","(부서 미구분)","상권개발동부팀","010-5152-3385","재직",7],
+    [146,"관리","AD2108037","서동호","","영업본부","(부서 미구분)","상권개발동부팀","010-4556-4931","재직",98],
+    [147,"관리","AD1406020","김태수","","영업본부","현장개선부","영업지원팀","010-8362-6462","재직",0],
+    [148,"임원","AD2501005","이용운","부서장","영업본부","지방영업부문","","010-3306-8784","재직",15],
+    [149,"임원","AD2401005","박성윤","부문장","영업본부","영업지원부문","","010-9411-8365","재직",0],
+    [150,"임원","AD1901005","임태희","부문장","영업본부","매장지원부문","","010-8877-2579","재직",31],
+    [151,"현장","AD6055708","이준렬","","영업본부","매장지원부문","오픈레이아웃팀","010-4735-3938","재직",62],
+    [152,"현장","AD6147630","임지효","","영업본부","영업지원부문","매장비용관리팀","010-8594-0234","재직",61],
+    [153,"현장","AD6153379","이가연","","영업본부","영업지원부문","매출정산팀","010-6347-1406","재직",42],
+    [154,"현장","AD6155961","이선민","","영업본부","영업지원부문","현장개선팀","010-6322-6836","재직",0],
+    [155,"현장","AD6157562","정민주","","영업본부","영업지원부문","매출정산팀","010-5067-8681","재직",15],
+    [156,"관리","AD2404005","안현우","","온라인사업본부","주문/결제개발부","","010-9949-8902","재직",46],
+    [157,"관리","AD2309016","신은주","부서장","온라인사업본부","전시/검색기획부","","010-8790-8265","재직",69],
+    [158,"관리","AD2309017","최예진","","온라인사업본부","(부서 미구분)","온라인AI추진팀","010-3166-3696","재직",30],
+    [159,"관리","AD2306088","박연서","","온라인사업본부","주문/결제기획부","","010-4635-9602","재직",31],
+    [160,"관리","AD2102027","최두리","","온라인사업본부","온라인마케팅부","","010-8480-3214","재직",84],
+    [161,"관리","AD0704019","김상학","부서장","온라인사업본부","온라인MD부","","010-3266-3065","재직",90],
+    [162,"관리","AD2403002","김미리","팀장","온라인사업본부","온라인MD부","온라인MD팀","010-9040-3829","재직",15],
+    [163,"관리","AD2512016","이수헌","","온라인사업본부","온라인MD부","온라인MD팀","010-2865-7217","재직",38],
+    [164,"관리","AD1812027","이두리","","온라인사업본부","온라인MD부","온라인MD팀","010-5271-6750","재직",15],
+    [165,"관리","AD2309019","박한솔","","온라인사업본부","온라인MD부","온라인MD팀","010-4730-4018","재직",86],
+    [166,"관리","AD2306087","이준영","","온라인사업본부","온라인MD부","온라인MD팀","010-7579-5138","재직",38],
+    [167,"관리","AD0903015","이지혁","팀장","온라인사업본부","온라인MD부","온라인상품정보팀","010-2782-9021","재직",46],
+    [168,"임원","AD2302001","조태진","본부장","온라인사업본부","온라인사업본부(직속)","","010-2704-3357","재직",69],
+    [169,"현장","AD6143371","김옥주","","온라인사업본부","온라인사업본부(직속)","온라인MD팀","010-9246-8312","재직",53],
+    [170,"현장","AD6152271","김보나","","온라인사업본부","온라인사업본부(직속)","온라인상품정보팀","010-2593-2176","재직",23],
+    [171,"현장","AD6153575","황지원","","온라인사업본부","온라인사업본부(직속)","온라인MD팀","010-8264-0466","재직",53],
+    [172,"관리","AD1510001","김경문","부서장","인사총무본부","인사관리부","","010-4211-0207","재직",92],
+    [173,"관리","AD1506013","임상경","","인사총무본부","인사관리부","인사관리팀","010-7666-9243","재직",53],
+    [174,"관리","AD2410015","이준혁","","인사총무본부","인사관리부","인사관리팀","010-8931-2622","재직",15],
+    [175,"관리","AD2306045","이효민","","인사총무본부","인사관리부","인사관리팀","010-5491-8761","재직",69],
+    [176,"관리","AD1111026","권태훈","","인사총무본부","인사관리부","급여관리팀","010-4580-8338","재직",30],
+    [177,"관리","AD1506015","김현이","","인사총무본부","인사관리부","급여관리팀","010-8138-6016","재직",38],
+    [178,"관리","AD2410040","김영현","","인사총무본부","인사관리부","급여관리팀","010-9174-2280","재직",84],
+    [179,"관리","AD2302012","이태경","","인사총무본부","인사관리부","급여관리팀","010-3521-3413","재직",47],
+    [180,"관리","AD1912016","양경주","","인사총무본부","총무관리부","총무관리팀","010-6556-2678","재직",48],
+    [181,"관리","AD2302013","조재민","","인사총무본부","총무관리부","총무관리팀","010-7329-6400","재직",23],
+    [182,"관리","AD1604001","변승환","","인사총무본부","총무관리부","총무관리팀","010-5525-2859","재직",0],
+    [183,"현장","AD6151130","안정하","","인사총무본부","인사관리부","급여관리팀","010-9523-4853","재직",87],
+    [184,"현장","AD6154830","남채영","","인사총무본부","인사관리부","총무관리팀","010-5129-9873","재직",15],
+    [185,"관리","AD1308002","김현기","부서장(대행)","재경본부","관리회계부","","010-5039-3255","재직",46],
+    [186,"관리","AD1606038","최주호","팀장","재경본부","관리회계부","관리회계팀","010-4782-0464","재직",69],
+    [187,"관리","AD2512003","이보연","","재경본부","관리회계부","관리회계팀","010-9155-4891","재직",76],
+    [188,"관리","AD1203001","김형철","부서장","재경본부","자금부","","010-2320-2395","재직",76],
+  ];
+
+  // CSV 생성 (BOM 포함으로 한글 깨짐 방지)
+  const BOM = '\uFEFF';
+  const csv = BOM + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '2026상반기_안전보건교육_미이수자명단_20260615.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
