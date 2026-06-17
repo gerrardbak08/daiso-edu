@@ -12,3 +12,5 @@
 .playwright-mcp/
 update_edu.py
 26상반기_안전보건교육_이수현황.html
+build_index.py
+verify-*.png
